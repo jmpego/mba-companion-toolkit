@@ -1,0 +1,22 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temp / build
+*.tmp
+*.bak
+node_modules/
+__pycache__/
+*.pyc
+
+# OneDrive sync artifacts
+.cloud
+desktop.ini

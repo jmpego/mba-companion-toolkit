@@ -1,0 +1,35 @@
+{
+  "uc": "<uc-slug>",
+  "aula": 1,
+  "data": "AAAA-MM-DD",
+  "source_path": "<absolute path to ClassNotes_sessionN.docx>",
+  "notes_path": "<absolute path to AAAA-MM-DD_Aula_NN_<UC>_progressive.md>",
+  "slides_dir": "<absolute path to materiais/slides-aula-NN/>",
+  "flipcharts_dir": "<absolute path to FlipCharts/AAAA-MM-DD/>",
+  "last_paragraph_index": 0,
+  "last_image_count": 0,
+  "language_source": "EN",
+  "language_synthesis": "PT-PT",
+  "snapshot_history": [
+    {
+      "snapshot": "T0",
+      "time": "HH:MM (file created)",
+      "lines": 0,
+      "images_total": 0,
+      "note": "Source file just created. Cron will start capturing on first save."
+    }
+  ],
+  "owner_directives": [
+    "real-time pipeline (cron 15-min)",
+    "use language X for citations and language Y for synthesis (your choice)",
+    "preserve docente quotes ipsis verbis",
+    "use callout convention 🔷/🔶/📷"
+  ],
+  "uc_context": {
+    "docente": "<Nome — School>",
+    "calendario": "S1 ___ | S2 ___ | S3 ___ | S4 ___",
+    "avaliacao": "<estrutura percentages>",
+    "deadlines": "<key dates: group due, individual due, etc.>",
+    "bibliografia_principal": "<Manual referenciado>"
+  }
+}
