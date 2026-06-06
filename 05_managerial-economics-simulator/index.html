@@ -833,6 +833,65 @@
 </head>
 
 <body>
+<!-- =============== Gate de acesso (client-side, partilha turma) =============== -->
+<div id="meGate" role="dialog" aria-modal="true" aria-label="Acesso restrito">
+  <div class="meGate__card">
+    <div class="meGate__logo">Simulador ME</div>
+    <h1 class="meGate__title">Acesso restrito</h1>
+    <p class="meGate__sub">Introduz a palavra-passe da turma para entrares no simulador.</p>
+    <form id="meGateForm" autocomplete="off">
+      <input id="meGateInput" type="password" placeholder="Palavra-passe" aria-label="Palavra-passe" autocomplete="off">
+      <button type="submit">Entrar</button>
+      <p id="meGateErr" class="meGate__err" hidden>Palavra-passe incorrecta.</p>
+    </form>
+    <p class="meGate__foot">PBS EMBA 25/26 &middot; Managerial Economics</p>
+  </div>
+</div>
+<style>
+  #meGate{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,#0A3D62,#1A5276);font-family:'Inter',system-ui,sans-serif;padding:24px}
+  #meGate[hidden]{display:none}
+  .meGate__card{background:#fff;border-radius:16px;padding:40px 36px;max-width:380px;width:100%;
+    box-shadow:0 20px 60px rgba(0,0,0,.35);text-align:center}
+  .meGate__logo{font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:#F39C12;margin-bottom:18px}
+  .meGate__title{font-size:24px;font-weight:700;color:#0A3D62;margin:0 0 8px}
+  .meGate__sub{font-size:14px;color:#5a6b7a;margin:0 0 24px;line-height:1.5}
+  #meGateForm{display:flex;flex-direction:column;gap:12px}
+  #meGateInput{padding:13px 16px;border:1.5px solid #d4dde4;border-radius:10px;font-size:15px;font-family:inherit;outline:none;transition:border-color .15s}
+  #meGateInput:focus{border-color:#1A5276}
+  #meGateForm button{padding:13px;border:0;border-radius:10px;background:#0A3D62;color:#fff;font-size:15px;font-weight:600;font-family:inherit;cursor:pointer;transition:background .15s}
+  #meGateForm button:hover{background:#1A5276}
+  .meGate__err{color:#c0392b;font-size:13px;margin:4px 0 0}
+  .meGate__foot{font-size:12px;color:#9aa7b2;margin:22px 0 0}
+  body.meGate--locked{overflow:hidden}
+</style>
+<script>
+(function(){
+  var HASH="c7b2ff936591bd379db2c9501fc2e0a28353c23a574825bfd2e658f5d030927c";
+  var KEY="me_sim_gate_ok";
+  var gate=document.getElementById("meGate");
+  var form=document.getElementById("meGateForm");
+  var input=document.getElementById("meGateInput");
+  var err=document.getElementById("meGateErr");
+  function unlock(){gate.setAttribute("hidden","");document.body.classList.remove("meGate--locked");}
+  if(sessionStorage.getItem(KEY)==="1"){unlock();return;}
+  document.body.classList.add("meGate--locked");
+  setTimeout(function(){try{input.focus();}catch(e){}},50);
+  async function sha256(s){
+    var buf=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s));
+    return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0");}).join("");
+  }
+  form.addEventListener("submit",async function(e){
+    e.preventDefault();
+    var h;
+    try{h=await sha256(input.value);}catch(err2){h="";}
+    if(h===HASH){sessionStorage.setItem(KEY,"1");unlock();}
+    else{err.hidden=false;input.value="";input.focus();}
+  });
+})();
+</script>
+<!-- =============== fim do gate =============== -->
+
 
   <!-- ─── Cabeçalho ─── -->
   <header class="site-header" role="banner">
